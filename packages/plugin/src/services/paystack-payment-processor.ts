@@ -96,8 +96,8 @@ class PaystackPaymentProcessor extends AbstractPaymentProvider {
       );
     }
 
-    const { context, amount, currency_code } = initiatePaymentData;
-    const { email, session_id } = context;
+    const { context, amount, currency_code, data } = initiatePaymentData;
+    const { email, session_id } = data;
 
     const validatedCurrencyCode = formatCurrencyCode(currency_code);
 
@@ -180,7 +180,7 @@ class PaystackPaymentProcessor extends AbstractPaymentProvider {
     }
 
     try {
-      const { paystackTxRef } = paymentSessionData;
+      const { paystackTxRef } = paymentSessionData.data;
 
       const { status, data } = await this.paystack.transaction.verify({
         reference: paystackTxRef,
